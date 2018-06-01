@@ -1,9 +1,9 @@
 from django.conf.urls import url
 
-# import view functions
+# Import views from the main app
 from . import views
 
-# The url patterns:
+# URL PATTERNS
 urlpatterns = [
     url(r'', views.main, name='main')
 ]
