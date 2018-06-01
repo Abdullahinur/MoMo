@@ -30,6 +30,8 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
+# LOGIN REDIRECT
+LOGIN_REDIRECT_URL = '/'
 
 # Application definition
 
