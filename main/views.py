@@ -31,9 +31,7 @@ def register(request):
                 login(request, user)
                 return HttpResponseRedirect('/')
             else:
-                raise forms.ValidationError(
-                    'Looks like a username with that email or password already exists')
-
+                return render(request, 'registration/user_exists.html')
     else:
         form = UserRegistrationForm()
 
