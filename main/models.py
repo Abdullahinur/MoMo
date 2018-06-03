@@ -87,3 +87,48 @@ class User_Photo(models.Model):
 
     def __str__(self):
         return self.profile_picture_link
+
+
+'''
+Contact Class, holds email
+'''
+
+
+class Contact(models.Model):
+
+    user_reference = models.ForeignKey(User, on_delete=models.CASCADE)
+    contact_id = models.IntegerField(default=0)
+    contact_name = models.CharField(max_length=10000)
+    contact_email = models.CharField(max_length=10000)
+
+    def __str__(self):
+        return self.contact_id
+
+    def __str__(self):
+        return self.contact_name
+
+    def __str__(self):
+        return self.contact_email
+
+
+'''
+Conversations Class, for messages
+'''
+
+
+class Conversation(models.Model):
+
+    contact_reference = models.ForeignKey(Contact, on_delete=models.CASCADE)
+    contact_id = models.IntegerField(default=0)
+    contact_name = models.CharField(max_length=10000)
+    contact_email = models.CharField(max_length=10000)
+    msg_content = models.CharField(default='', max_length=10000)
+    sent_on = models.DateTimeField(
+        'Date Published', default=datetime.datetime.now)
+    has_been_read = models.BooleanField(default=False, blank=True)
+
+    def __str__(self):
+        return self.contact_name
+
+    def __str__(self):
+        return self.msg_content
