@@ -1,8 +1,93 @@
-{% extends "main/base.html" %} {% block content %} {{ block.super }} {% if user.is_authenticated %}
-<p>hello</p>
-<p>welcome {{ user.username }}</p>
-<p><a href="/logout/">Logout</a></p>
-{% else %}
-<p><a href="/login/">Login</a></p>
-<p><a href="/register/">Register</a></p>
-{% endif %} {% endblock %}
+{% extends "main/base.html" %} {% load static %} {% block content %} {{ block.super }}
+<div class="container-fluid" style="width: 100%; text-align: center; margin-top: 2%;">
+		<h2>
+			<span>Face</span><span class="bg-primary" style="font-weight: bold; padding: 5px; border-radius: 15%;">Book</span>
+			Clone
+		</h2>
+
+		<br />
+
+		<!-- Sign Up -->
+		<div class="sign-up-section" style="text-align: left; float: left; padding: 1% 2%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+			<h2>Sign Up</h2>
+			<br />
+			<form class="form-group" action="{% url 'momo:register' %}" method="POST">
+			{% csrf_token %}
+				<label>Name: </label><br />
+				<input class="form-control" type="text" name="userName" required="required" required /><br />
+				<label>Email: </label><br />
+				<input class="form-control" type="email" name="userEmail" required="required" required /><br />
+				<label>Password: </label><br />
+				<input class="form-control" type="password" name="userPassword" required="required" required /><br /><br />
+				<button class="btn btn-primary" type="submit">Sign Up</button>
+			</form>
+			{% if statuses.signup_status %}
+			<br>
+			<p class="text-danger" style="font-size: 0.6em; text-align: center;"><i class="glyphicon glyphicon-remove-sign"></i>{{ statuses.signup_status|safe }}<i class="glyphicon glyphicon-remove-sign"></i></p>
+			{% endif %}
+		</div>
+
+		<!-- Log In -->
+		<div class="log-in-section" style="text-align: left; float: right; padding: 1% 2%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+			<h2>Log In</h2>
+			<br />
+
+			<form class="form-group" action="{% url 'momo:profile' %}" method="POST">
+			{% csrf_token %}
+				<label>Email: </label><br />
+				<input class="form-control" type="email" name="checkUserEmail" required="required" required /><br />
+				<label>Password: </label><br />
+				<input class="form-control" type="password" name="checkUserPassword" required="required" required /><br /><br />
+				<button class="btn btn-primary" type="submit">Log In</button>
+			</form>
+
+			{% if statuses.login_status %}
+			<p class="text-danger" style="font-size: 0.6em; text-align: center;"><i class="glyphicon glyphicon-remove-sign"></i>{{ statuses.login_status|safe }}<i class="glyphicon glyphicon-remove-sign"></i></p>
+			{% endif %}
+
+			<!-- Demo Account -->
+			<!-- Pop up -->
+			<a style="margin-top: 40px;" data-toggle="modal" data-target="#myDemo" class="btn btn-danger">Demo Account</a>
+			<!-- Modal -->
+			<div class="modal fade" id="myDemo" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header bg-primary">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title" style="text-align: center;">Welcome To the momo Clone</h4>
+						</div>
+
+						<form action="{% url 'momo:profile' %}" method="POST">
+							{% csrf_token %}
+							<div class="modal-body">
+								<div style="text-align: center;" class="form-group">
+									<img src="{% static 'momo/images/globe-earth-animation-15-2.gif' %}" class="img-rounded" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); width:100px;" >
+								</div>
+								<div style="text-align: center; font-size: 0.6em;">
+									<br />
+									<p>Please Use These Details To Log In</p>
+									<br />
+									<p><strong>Email:</strong> guest@momo-clone.com</p>
+									<p><strong>Password:</strong> 12345</p>
+								</div>
+								<input style="display: none;" type="hidden" name="checkUserEmail" value="guest@momo-clone.com" />
+								<input style="display: none;" type="hidden" name="checkUserPassword" value="12345" />
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-primary" type="submit">Log In as Larry Georges</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- End Pop up-->
+		</div>
+
+		<div class="container-fluid rotating-logo" title="Welcome To The momo Clone">
+			<img src="{% static 'momo/images/globe-earth-animation-15-2.gif' %}" />
+		</div>
+	</div>
+
+ {% endblock %}
