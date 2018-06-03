@@ -39,7 +39,7 @@ class User(models.Model):
 
 
 '''
-User Options things like bio and locale
+User Options Class, things(properties) like bio and locale
 '''
 
 
@@ -57,3 +57,33 @@ class User_Options(models.Model):
 
     def __str__(self):
         return self.about_post
+
+
+'''
+User posts class
+'''
+
+
+class User_Posts(models.Model):
+
+    user_reference = models.ForeignKey(User, on_delete=models.CASCADE)
+    post_made = models.CharField(max_length=10000)
+    pub_date = models.DateTimeField('Date Published')
+    likes = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.post_made
+
+
+'''
+User Class for user photos
+'''
+
+
+class User_Photo(models.Model):
+
+    user_reference = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile_picture_link = models.CharField(max_length=10000)
+
+    def __str__(self):
+        return self.profile_picture_link
