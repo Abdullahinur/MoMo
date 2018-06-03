@@ -1,6 +1,5 @@
 import datetime as dt
 
-from django import forms
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -8,9 +7,8 @@ from django.shortcuts import render
 
 from .forms import UserRegistrationForm
 
+
 # Create your views here.
-
-
 def main(request):
     title = 'this is a test message'
     date = dt.date.today()
